@@ -16,27 +16,46 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String risposta = "";
         String indovinato = "";
+        String numeroTentativi="";
+        String scelta = "";
     
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
 
-        do{
-            System.out.println("scrivi il nuemero da indovinare");
-            String numeroDaIndovinare = scanner.nextLine();
-            //() fare i giusti controlli )
+        //do{
+            do{
+                System.out.println("scrivi il numero da indovinare");
+                String numeroDaIndovinare = scanner.nextLine();
+                //() fare i giusti controlli )
+                
+                //spedisco imput
+                out.writeBytes(numeroDaIndovinare + "\n");
+    
+                //ricevo se è giusto o < >
+    
+                risposta = in.readLine();
+                System.out.println(risposta);
+                if(risposta.equals("!!!<") ||risposta.equals("!!!>") ){
+                    System.out.println(" numero non  valido");
+                }
+                // se indovinato
+               if(risposta.equals("=")){
+                 System.out.println("indovinato");
+                 numeroTentativi = in.readLine();
+                 System.out.println( "numero tentativi " + numeroTentativi);
+               }
             
-            //spedisco imput
-            out.writeBytes(numeroDaIndovinare + "\n");
+            }while(!(risposta.equals("="))); // ciclo che chiede un numero fino a che la risposta del servere sia "=";
+            
+            //System.out.println("vuoi continuare ? digita y se si o x se no");
+            //scelta = scanner.nextLine();
+            
+           // if (scelta.equals("x"))
+            //break;
 
-            //ricevo se è giusto o < >
-
-            risposta = in.readLine();
-            System.out.println(risposta);
-
+        //}while(scelta.equals("y"));
         
-        }while(!(indovinato.equals("="))); // ciclo che chiede un numero fino a che la risposta del servere sia "=";
-      
-        System.out.println("indovinato");
+       System.out.println("terminato");
 
 
     }
